@@ -1,5 +1,6 @@
 // Task 2: Fetch Tickets Using Async/Await and Handle Errors
 const ticketList = document.getElementById('tickets');
+const loadingMessage = document.getElementById('loadingIndicators')
 async function fetchTickets() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -10,10 +11,12 @@ async function fetchTickets() {
         if (tickets.length == 0) {
             throw new Error('No tickets available.');
         }
-        console.log(`Tickets: ${tickets}`);
         return tickets;
     } catch (error) {
         console.error('Error:', error.message);
+    } finally {
+        loadingMessage.hidden = true;
+        console.log('Closing connection.')
     }
 };
 
